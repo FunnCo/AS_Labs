@@ -12,12 +12,9 @@ fun main() {
     lab.run()
 
 //    Запуск во время тестирования производился следующим образом:
-//    for(i in 1 .. 10){
-//        val lab = initConfiguredLab(1, listOf("H:\\АиСД\\ЛР1\\test${i}\\original.txt", "H:\\АиСД\\ЛР1\\test${i}\\output"))
-//        lab.run()
-//    }
+//    initConfiguredLab(2, listOf("5", "-1 0 4 0 3")).run()
+//    initConfiguredLab(2, listOf("5", "4 -1 4 1 1")).run()
 }
-
 
 
 fun initConfiguredLab(number: Int, config: List<String>): Lab {
@@ -29,8 +26,9 @@ fun initConfiguredLab(number: Int, config: List<String>): Lab {
         }
 
         2 -> {
-            val inputFilePath = config[0]
-            return Lab2Impl(inputFilePath)
+            val arraySize = config[0].toInt()
+            val array = config[1].split(" ").map { it.toInt() }.toList()
+            return Lab2Impl(arraySize, array)
         }
 
         3 -> {
@@ -39,7 +37,7 @@ fun initConfiguredLab(number: Int, config: List<String>): Lab {
         }
 
         6 -> {
-            val array = config[0].split(" ").map{ it.toInt() }.toTypedArray()
+            val array = config[0].split(" ").map { it.toInt() }.toTypedArray()
             return Lab6Impl(array)
         }
 
@@ -72,15 +70,17 @@ fun initLab(): Lab {
         }
 
         2 -> {
-            println("Введите путь до файла с деревом")
-            val inputFilePath = readln()
-            return Lab2Impl(inputFilePath)
+            println("Введите данные, в формате как в методичке")
+            val arraySize = readln() // По факту размер массива не имеет значения
+            val array = readln().split(" ").map { it.toInt() }.toList()
+            println()
+            return Lab2Impl(arraySize.toInt(), array)
         }
 
         6 -> {
             println("Введите данные, в формате как в методичке")
             readln() // По факту размер массива не имеет значения
-            val array = readln().split(" ").map{ it.toInt() }.toTypedArray()
+            val array = readln().split(" ").map { it.toInt() }.toTypedArray()
             println()
             return Lab6Impl(array)
         }

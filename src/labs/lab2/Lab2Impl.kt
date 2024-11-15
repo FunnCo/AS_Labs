@@ -1,6 +1,5 @@
 package labs.lab2
 
-import common.FileUtils
 import labs.Lab
 
 /*
@@ -22,21 +21,18 @@ parenti = −1, то i является корнем. Гарантируется
 Ограничения. 1 ≤ n ≤ 105.
 */
 
-class Lab2Impl(val inputFilePath: String) : Lab {
+class Lab2Impl(val arraySize: Int, val nodes: List<Int>) : Lab {
 
     override fun run() {
-        val allNodes = processInput(FileUtils.getLinesFromFile(inputFilePath))
+        val allNodes = processInput(arraySize, nodes)
         println(findHeightOfTree(allNodes))
     }
 
-    private fun processInput(lines: List<String>): List<Node> {
-        val totalNodes = lines[0].toInt()
-        val parentIndexes = lines[1].split(' ')
-            .map { it.toInt() }
+    private fun processInput(arraySize: Int, parentIndexes: List<Int>): List<Node> {
 
         // Создаем n вершин
         val nodes = mutableListOf<Node>()
-        for (index in 1..totalNodes) {
+        for (index in 1..arraySize) {
             nodes.add(Node(null))
         }
 
