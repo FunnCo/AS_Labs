@@ -148,6 +148,7 @@ class Lab1Impl(val inputFilePath: String, val outputDirectoryPath: String) : Lab
         sortTime: Long
     ): String {
         val resultString = StringBuilder()
+            .append("Вариант: Латиница, сортировка по длине слова, сортировка расческой, по убыванию, учитывать числа.\n")
             .append("Слов в исходном тексте: $wordCount\n")
             .append("Время сортировки: $sortTime мс.\n")
             .append("\n")

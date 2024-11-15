@@ -16,22 +16,6 @@ fun main() {
 //        val lab = initConfiguredLab(1, listOf("H:\\АиСД\\ЛР1\\test${i}\\original.txt", "H:\\АиСД\\ЛР1\\test${i}\\output"))
 //        lab.run()
 //    }
-
-
-//    var lab = initConfiguredLab(2, listOf("H:\\АиСД\\ЛР2\\test1.txt"))
-//    lab.run()
-
-//    var lab = initConfiguredLab(3, listOf("H:\\АиСД\\ЛР2\\test1.txt"))
-//    lab.run()
-
-//    var lab = initConfiguredLab(6, listOf("5 4 3 2 1"))
-//    lab.run()
-
-//    var lab = initConfiguredLab(7, listOf("H:\\АиСД\\ЛР7\\input.txt", "H:\\АиСД\\ЛР7\\output.txt"))
-//    lab.run()
-
-//    var lab = initConfiguredLab(8, listOf("H:\\АиСД\\ЛР8\\input.txt", "H:\\АиСД\\ЛР8\\output.txt"))
-//    lab.run()
 }
 
 

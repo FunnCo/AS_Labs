@@ -2,6 +2,7 @@ package common
 
 import java.util.stream.Collectors
 
+// Утилита для работы с инртерпретацией команд. Используется в 4 и 7 лабораторных. Ограничение на количество команд - 105 (как в 7 работе)
 object InterpretationUtils {
     private val LOG_TO_CONSOLE = false
 
