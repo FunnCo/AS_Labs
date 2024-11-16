@@ -8,8 +8,10 @@ import labs.lab8.Lab8Impl
 
 
 fun main() {
-    val lab = initLab()
-    lab.run()
+    initConfiguredLab(1, listOf("/home/funnco/AlgLabs/ЛР1/test1/original.txt", "/home/funnco/AlgLabs/ЛР1/test1/output")).run()
+
+//    val lab = initLab()
+//    lab.run()
 
 //    Запуск во время тестирования производился следующим образом:
 //    for(i in 1 .. 10){
