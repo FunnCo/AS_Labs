@@ -8,7 +8,7 @@ import labs.lab8.Lab8Impl
 
 
 fun main() {
-    initConfiguredLab(1, listOf("/home/funnco/AlgLabs/ЛР1/test14/original.txt", "/home/funnco/AlgLabs/ЛР1/test14/output")).run()
+    initConfiguredLab(1, listOf("/home/funnco/AlgLabs/ЛР1/test1/original.txt", "/home/funnco/AlgLabs/ЛР1/test1/output")).run()
 
 //    val lab = initLab()
 //    lab.run()

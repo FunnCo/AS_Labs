@@ -47,6 +47,7 @@ class Lab1Impl(val inputFilePath: String, val outputDirectoryPath: String) : Lab
         val lines = FileUtils.getLinesFromFile(inputFilePath)
         if(lines.isEmpty()){
             println("Ошибка: файл с входными данными не существует, или получен пустой текст")
+            return
         }
         val originalText = lines.joinToString("\n")
 
