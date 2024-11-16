@@ -45,6 +45,9 @@ class Lab1Impl(val inputFilePath: String, val outputDirectoryPath: String) : Lab
     override fun run() {
         // Получение оригинального текста
         val lines = FileUtils.getLinesFromFile(inputFilePath)
+        if(lines.isEmpty()){
+            println("Ошибка: файл с входными данными не существует, или получен пустой текст")
+        }
         val originalText = lines.joinToString("\n")
 
         // Разбивка текста на слова, и измерение времени сортировки (+ сама сортировка)
