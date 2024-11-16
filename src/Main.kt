@@ -13,7 +13,7 @@ fun main() {
 
 //    Запуск во время тестирования производился следующим образом:
 //    for(i in 1 .. 10){
-//        val lab = initConfiguredLab(1, listOf("H:\\АиСД\\ЛР1\\test${i}\\original.txt", "H:\\АиСД\\ЛР1\\test${i}\\output"))
+//        val lab = initConfiguredLab(1, listOf("/home/funnco/AlgLabs/ЛР1/test${i}/original.txt", "/home/funnco/AlgLabs/ЛР1/test${i}/output"))
 //        lab.run()
 //    }
 }
