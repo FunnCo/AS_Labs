@@ -1,6 +1,5 @@
 package labs.lab6
 
-import common.FileUtils
 import labs.Lab
 
 /*
@@ -24,38 +23,56 @@ A[i] ≤ A[2i + 1] и A[i] ≤ A[2i + 2] для всех i.
 • если 2i + 1 ≤ n−1, то A[i] < A[2i + 1].
 • если 2i + 2 ≤ n−1, то A[i] < A[2i + 2].
 
-Ограничения. 1 ≤ n ≤ 105; 0 ≤ A[i] ≤ 109 для всех 0 ≤ i ≤ n−1; все A[i] попарно различны;
+Ограничения. 1 ≤ n ≤ 10^5; 0 ≤ A[i] ≤ 10^9 для всех 0 ≤ i ≤ n−1; все A[i] попарно различны;
 i != j.
 */
 
-class Lab6Impl(var arrayToHeapify: Array<Int>) : Lab {
+private const val MIN_POSSIBLE_VALUE = 0
+private const val MAX_POSSIBLE_VALUE = 100000
+private const val MIN_ARRAY_SIZE = 1
+private const val MAX_ARRAY_SIZE = 1000000000
+
+
+class Lab6Impl(var arraySize: Int, var arrayToHeapify: Array<Int>) : Lab {
 
     private var totalSwaps = 0
     private var swaps: MutableList<Pair<Int, Int>> = mutableListOf()
 
     override fun run() {
-        rearrangeToMinHeap(arrayToHeapify)
-        println(formResult())
+        if (isTaskValid()) {
+            rearrangeToMinHeap(arrayToHeapify)
+            println(formResult())
+        } else {
+            println("Ошибка: данные некорректны")
+        }
     }
 
-    fun formResult(): String {
+    private fun isTaskValid(): Boolean {
+        val isSizeValid = arraySize in MIN_POSSIBLE_VALUE..MAX_POSSIBLE_VALUE
+        val isSizeCorrect = arraySize == arrayToHeapify.size
+        val areValuesDistinct = arrayToHeapify.distinct().size == arrayToHeapify.size
+        val areValuesInCorrectRange = arrayToHeapify.all { it in MIN_ARRAY_SIZE..MAX_ARRAY_SIZE }
+        return isSizeValid && isSizeCorrect && areValuesDistinct && areValuesInCorrectRange
+    }
+
+    private fun formResult(): String {
         var result = "$totalSwaps"
-        for (swap in swaps) {
-            result += "\n${swap.first} ${swap.second}"
-        }
+        swaps.forEach { result += "\n${it.first} ${it.second}" }
         return result
     }
 
-    fun rearrangeToMinHeap(inputList: Array<Int>){
-        for(i in inputList.size-1 downTo 0){
+    // Приведение массива к минкуче
+    private fun rearrangeToMinHeap(inputList: Array<Int>) {
+        for (i in inputList.size - 1 downTo 0) {
             minHeapify(inputList, i)
         }
     }
 
-    fun minHeapify(inputList: Array<Int>, baseMinIndex: Int) {
+    // Приведение массива к минкуче для конкретного массива (вершины)
+    private fun minHeapify(inputList: Array<Int>, baseMinIndex: Int) {
         var currentMinIndex = baseMinIndex
-        var leftChildIndex = baseMinIndex * 2 + 1
-        var rightChildIndex = baseMinIndex * 2 + 2
+        val leftChildIndex = baseMinIndex * 2 + 1
+        val rightChildIndex = baseMinIndex * 2 + 2
 
         if (leftChildIndex < inputList.size && inputList[leftChildIndex] < inputList[currentMinIndex]) {
             currentMinIndex = leftChildIndex
@@ -65,13 +82,14 @@ class Lab6Impl(var arrayToHeapify: Array<Int>) : Lab {
             currentMinIndex = rightChildIndex
         }
 
-        if(currentMinIndex != baseMinIndex) {
+        if (currentMinIndex != baseMinIndex) {
             swap(inputList, currentMinIndex, baseMinIndex)
             minHeapify(inputList, currentMinIndex)
         }
     }
 
-    fun swap(inputList: Array<Int>, index1: Int, index2: Int) {
+    // Обмен элементов в массиве
+    private fun swap(inputList: Array<Int>, index1: Int, index2: Int) {
         totalSwaps++
         swaps.add(index2 to index1)
 
