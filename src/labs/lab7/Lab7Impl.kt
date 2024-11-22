@@ -1,6 +1,5 @@
 package labs.lab7
 
-import common.FileUtils
 import common.InterpretationUtils
 import labs.Lab
 import java.util.stream.Collectors
@@ -30,7 +29,7 @@ number name, del number и find number.
 Формат выхода. Для каждого запроса find выведите в отдельной строке либо имя, либо
 «not found».
 
-Ограничения. 1 ≤ n ≤ 105. Телефонные номера содержат не более семи цифр и не
+Ограничения. 1 ≤ n ≤ 10^5. Телефонные номера содержат не более семи цифр и не
 содержат ведущих нулей. Имена содержат только буквы латинского алфавита, не являются
 пустыми строками и имеют длину не больше 15. Гарантируется, что среди имён не встречается
 строка «not found».
@@ -40,10 +39,6 @@ number name, del number и find number.
 и назначать метки. Например, запросы add number name group и tag number
 tag_name. При этом у одного контакта может быть несколько меток. Реализовать
 возможность поиска по группе и метке.
-
-2. Поиск по частичному совпадению. Добавить операцию find partial number,
-которая ищет контакты по частичному совпадению номера. Например, find 123
-вернет все контакты, где номер начинается с 123.
 
 4. Защита от дубликатов имен. Ввести правило, что одно имя может быть связано
 только с одним номером. Если пользователь пытается добавить имя, которое
@@ -69,14 +64,14 @@ class Lab7Impl(val inputFilePath: String, val outputFilePath: String) : Lab {
 
     fun executeCommand(command: String): String {
         val parts = command.split(" ")
-        val commandType = parts[0].lowercase()
+        val commandType =  Commands.entries.find { it.name.lowercase() == parts[0] }
 
         return when (commandType) {
-            Commands.ADD.name.lowercase() -> executeAdd(parts)
-            Commands.FIND.name.lowercase() -> executeFind(parts)
-            Commands.DEL.name.lowercase() -> executeDelete(parts)
-            Commands.SORT.name.lowercase() -> executeSort(parts)
-            Commands.TAG.name.lowercase() -> executeTag(parts)
+            Commands.ADD -> executeAdd(parts)
+            Commands.FIND -> executeFind(parts)
+            Commands.DEL -> executeDelete(parts)
+            Commands.SORT -> executeSort(parts)
+            Commands.TAG -> executeTag(parts)
             else -> "unknown command"
         }
     }
@@ -85,17 +80,17 @@ class Lab7Impl(val inputFilePath: String, val outputFilePath: String) : Lab {
     // Синтаксис: add <number> <name> [<group>]
     fun executeAdd(parts: List<String>): String {
         if (parts.size < 3 || parts.size > 4 || !parts[1].matches("^\\d+\$".toRegex())) {
-            return "Error: wrong syntax"
+            return "error: wrong syntax"
         }
         var group: String? = null
         if (parts.size == 4) {
             group = parts[3]
         }
         return try {
-            phoneBook.addEntry(parts[1].toInt(), parts[2], group)
-            ""
+            phoneBook.addEntry(parts[1], parts[2], group)
+            "" // Возвращаем пустую строку
         } catch (e: IllegalStateException) {
-            "can't add duplicate number or name"
+            "can't add this number because of error: ${e.message}"
         }
     }
 
@@ -108,24 +103,27 @@ class Lab7Impl(val inputFilePath: String, val outputFilePath: String) : Lab {
             parts.size == 2 -> {
                 val numberOrName = parts[1]
                 if (numberOrName.matches("^\\d+\$".toRegex())) {
-                    val result = phoneBook.getEntryByNumber(numberOrName.toInt())
+                    val result = phoneBook.getEntryByNumber(numberOrName)
                     result?.name ?: "not found"
                 } else {
                     val result = phoneBook.getEntryByName(numberOrName)
                     if (result?.phone == null) "not found" else result.phone.toString()
                 }
             }
+
             parts.size == 3 && parts[1].lowercase() == "group" -> {
                 val groupName = parts[2]
                 val entries = phoneBook.getEntriesByGroup(groupName)
                 entries.stream().map(Entry::name).collect(Collectors.joining(" "))
             }
+
             parts.size == 3 && parts[1].lowercase() == "tag" -> {
                 val tag = parts[2]
                 val entries = phoneBook.getEntriesByTag(tag)
                 entries.stream().map(Entry::name).collect(Collectors.joining(" "))
             }
-            else -> "Error: wrong syntax"
+
+            else -> "error: wrong syntax"
         }
     }
 
@@ -133,12 +131,12 @@ class Lab7Impl(val inputFilePath: String, val outputFilePath: String) : Lab {
     // Синтаксис: del <number|name>
     fun executeDelete(parts: List<String>): String {
         if (parts.size != 2) {
-            return "Error: wrong syntax"
+            return "error: wrong syntax"
         }
         val identifier = parts[1]
         return try {
             if (identifier.matches("^\\d+\$".toRegex())) {
-                phoneBook.deleteEntryByNumber(identifier.toInt())
+                phoneBook.deleteEntryByNumber(identifier)
             } else {
                 phoneBook.deleteEntryByName(identifier)
             }
@@ -160,7 +158,6 @@ class Lab7Impl(val inputFilePath: String, val outputFilePath: String) : Lab {
         } else {
             entries.stream()
                 .map(Entry::phone)
-                .map(Int::toString)
                 .collect(Collectors.joining(" "))
         }
     }
@@ -169,9 +166,9 @@ class Lab7Impl(val inputFilePath: String, val outputFilePath: String) : Lab {
     // Синтаксис: tag <number> <tag>
     fun executeTag(parts: List<String>): String {
         if (parts.size != 3 || !parts[1].matches("^\\d+\$".toRegex())) {
-            return "Error: wrong syntax"
+            return "error: wrong syntax"
         }
-        val number = parts[1].toInt()
+        val number = parts[1]
         val tag = parts[2]
         val entry = phoneBook.getEntryByNumber(number)
         return if (entry != null) {

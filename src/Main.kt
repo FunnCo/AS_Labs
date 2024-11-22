@@ -12,15 +12,7 @@ fun main() {
 //    lab.run()
 
 //    Запуск во время тестирования производился следующим образом:
-    initConfiguredLab(6, listOf("5", "5 4 3 2 1"))?.run()
-    initConfiguredLab(6, listOf("5", "1 2 3 4 5"))?.run()
-    // Некорректные запуски:
-    initConfiguredLab(6, listOf("5123456203475602389465", "1 2 3 4 5"))?.run()
-    initConfiguredLab(6, listOf("0", "1 2 3 4 5"))?.run()
-    initConfiguredLab(6, listOf("5", "152738947502938457 2 3 4 5"))?.run()
-    initConfiguredLab(6, listOf("5", "1 1 3 4 4"))?.run()
-    initConfiguredLab(6, listOf("5", "1 2 3 4 a"))?.run()
-    initConfiguredLab(6, listOf("a", "1 2 3 4 5"))?.run()
+    initConfiguredLab(7, listOf("H:\\АиСД\\ЛР7\\input.txt", "H:\\АиСД\\ЛР7\\output.txt"))?.run()
 }
 
 
