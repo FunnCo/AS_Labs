@@ -13,16 +13,8 @@ fun main() {
 //    initLab()?.run()
 
 //    Запуск во время тестирования производился следующим образом:
-    initConfiguredLab(5, listOf("8", "2 7 3 1 5 2 6 2", "4"))?.run()
-    initConfiguredLab(5, listOf("3", "2 1 5", "1"))?.run()
-    initConfiguredLab(5, listOf("3", "2 3 9", "3"))?.run()
-
-//    Некорректные запуски:
-//    initConfiguredLab(5, listOf("9", "2 7 3 1 5 2 6 2", "4"))?.run() // Размер массива не совпадает с заявленным
-//    initConfiguredLab(5, listOf("3", "2 1 5", "5"))?.run() // Размер окна больше, чем сам массив
-//    initConfiguredLab(5, listOf("a", "2 3 9", "3"))?.run() // Проверки на правильный тип данных
-//    initConfiguredLab(5, listOf("3", "a 3 9", "3"))?.run()
-//    initConfiguredLab(5, listOf("3", "2 3 9", "a"))?.run()
+    initConfiguredLab(8, listOf("H:\\АиСД\\ЛР8\\input.txt", "H:\\АиСД\\ЛР8\\output.txt"))?.run()
+    initConfiguredLab(8, listOf("H:\\АиСД\\ЛР8\\input2.txt", "H:\\АиСД\\ЛР8\\output2.txt"))?.run()
 }
 
 
