@@ -56,10 +56,7 @@ class Lab5Impl(val arraySize: Int, val array: Array<Int>, val windowSize: Int): 
                 deque.pollLast()
             }
 
-            // Добавляем текущий элемент в очередь
             deque.offer(i)
-
-            // Записываем максимальное значение для текущего окна
             if (i >= windowSize - 1) {
                 result[i - windowSize + 1] = inputArray[deque.peek()]
             }
