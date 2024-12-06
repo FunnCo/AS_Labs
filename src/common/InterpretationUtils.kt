@@ -3,9 +3,9 @@ package common
 import java.util.stream.Collectors
 
 private const val MIN_ARRAY_SIZE = 1
-private const val MAX_ARRAY_SIZE = 100000
+private const val MAX_ARRAY_SIZE = 400000
 private const val LOG_TO_CONSOLE = true
-// Утилита для работы с инртерпретацией команд. Используется в 4 и 7 лабораторных. Ограничение на количество команд - 105 (как в 7 работе)
+// Утилита для работы с инртерпретацией команд. Используется в 4 и 7 лабораторных.
 object InterpretationUtils {
 
     fun interpretFilesCommands(inputFilePath: String, outputFilePath: String, executeCommand: (String) -> String) {
@@ -14,6 +14,11 @@ object InterpretationUtils {
         if (commandsCount < MIN_ARRAY_SIZE || commandsCount > MAX_ARRAY_SIZE) {
             println("Error: wrong command lines")
             return
+        }
+
+        // Если в файле заявлено больше команд, чем передано, то выполнены будут все переданные команды
+        if(commandsCount > allCommands.size) {
+            commandsCount = allCommands.size - 1
         }
 
         // Если в файле будет больше команд, чем заявлено в первой строке, то выполнено будет только заявленное кол-во

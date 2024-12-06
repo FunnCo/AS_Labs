@@ -40,32 +40,39 @@ class Lab4Impl(val inputFilePath: String, val outputFilePath: String, maxStackSi
 
     fun executeCommand(command: String): String {
         val parts = command.split(" ")
-        val commandType = parts[0].lowercase()
+        val commandType =  Commands.entries.find { it.name.lowercase() == parts[0] }
 
         return when (commandType) {
-            Commands.POP.name.lowercase() -> executePop()
-            Commands.PUSH.name.lowercase() -> executePush(parts)
-            Commands.AVG.name.lowercase() -> executeAvg()
-            Commands.MAX.name.lowercase() -> executeMax()
-            Commands.MIN.name.lowercase() -> executeMin()
+            Commands.POP -> executePop()
+            Commands.PUSH -> executePush(parts)
+            Commands.AVG -> executeAvg()
+            Commands.MAX -> executeMax()
+            Commands.MIN -> executeMin()
             else -> "unknown command"
         }
     }
 
     private fun executeMin(): String {
-        return stack.min().toString()
+        return stack.min()?.toString() ?: "cant find, because no elements in stack"
     }
 
     private fun executeMax(): String {
-        return stack.max().toString()
+        return stack.max()?.toString() ?: "cant find, because no elements in stack"
     }
 
     private fun executeAvg(): String {
-        return stack.avg().toString()
+        return stack.avg()?.toString() ?: "cant find, because no elements in stack"
     }
 
     private fun executePush(parts: List<String>): String {
-        stack.push(parts[1].toInt())
+        try{
+            stack.push(parts[1].toInt())
+        } catch (e: IllegalStateException){
+            return "stack is full"
+        } catch (e: Exception){
+            return "error: ${e.message}}"
+        }
+
         return ""
     }
 

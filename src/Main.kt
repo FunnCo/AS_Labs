@@ -2,6 +2,7 @@ import labs.Lab
 import labs.lab1.Lab1Impl
 import labs.lab2.Lab2Impl
 import labs.lab3.Lab3Impl
+import labs.lab4.Lab4Impl
 import labs.lab5.Lab5Impl
 import labs.lab6.Lab6Impl
 import labs.lab7.Lab7Impl
@@ -13,8 +14,8 @@ fun main() {
 //    initLab()?.run()
 
 //    Запуск во время тестирования производился следующим образом:
-    initConfiguredLab(8, listOf("H:\\АиСД\\ЛР8\\input.txt", "H:\\АиСД\\ЛР8\\output.txt"))?.run()
-    initConfiguredLab(8, listOf("H:\\АиСД\\ЛР8\\input2.txt", "H:\\АиСД\\ЛР8\\output2.txt"))?.run()
+    initConfiguredLab(4, listOf("H:\\АиСД\\ЛР4\\input.txt", "H:\\АиСД\\ЛР4\\output.txt"))?.run()
+//    initConfiguredLab(4, listOf("H:\\АиСД\\ЛР4\\input2.txt", "H:\\АиСД\\ЛР8\\output2.txt"))?.run()
 }
 
 
@@ -36,6 +37,12 @@ fun initConfiguredLab(number: Int, config: List<String>): Lab? {
             3 -> {
                 val inputFilePath = config[0]
                 return Lab3Impl(inputFilePath)
+            }
+
+            4 -> {
+                val inputFilePath = config[0]
+                val outputFilePath = config[1]
+                return Lab4Impl(inputFilePath, outputFilePath)
             }
 
             5 -> {
@@ -90,6 +97,14 @@ fun initLab(): Lab? {
                 val array = readln().split(" ").map { it.toInt() }.toList()
                 println()
                 return Lab2Impl(arraySize.toInt(), array)
+            }
+
+            4 -> {
+                println("Введите путь до файла с командами для стека")
+                val inputFilePath = readln()
+                println("Введите путь до файла, куда сохранить результаты работы со стеком")
+                val outputFilePath = readln()
+                return Lab4Impl(inputFilePath, outputFilePath)
             }
 
             5 -> {
