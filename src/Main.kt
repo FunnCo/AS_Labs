@@ -14,8 +14,7 @@ fun main() {
 //    initLab()?.run()
 
 //    Запуск во время тестирования производился следующим образом:
-    initConfiguredLab(4, listOf("H:\\АиСД\\ЛР4\\input.txt", "H:\\АиСД\\ЛР4\\output.txt"))?.run()
-//    initConfiguredLab(4, listOf("H:\\АиСД\\ЛР4\\input2.txt", "H:\\АиСД\\ЛР8\\output2.txt"))?.run()
+    initConfiguredLab(3, listOf("H:\\АиСД\\ЛР3\\input.txt", "H:\\АиСД\\ЛР3\\output.txt", "H:\\АиСД\\ЛР3\\analysis.txt", "1"))?.run()
 }
 
 
@@ -36,7 +35,10 @@ fun initConfiguredLab(number: Int, config: List<String>): Lab? {
 
             3 -> {
                 val inputFilePath = config[0]
-                return Lab3Impl(inputFilePath)
+                val outputFilePath = config[1]
+                val analysisFilePath = config[2]
+                val processorCount = config[3].toInt()
+                return Lab3Impl(inputFilePath, outputFilePath, analysisFilePath, processorCount, false)
             }
 
             4 -> {
